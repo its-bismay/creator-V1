@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 
-const page = () => {
+const page = async () => {
   return (
     <div className = "font-bold">
         <Button>Click me</Button>
