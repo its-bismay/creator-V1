@@ -1,12 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
 import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 
 
 const Page = () => {
+
+  const [value, setValue] = useState("")
+
   const trpc = useTRPC();
   const invoke = useMutation(trpc.invoke.mutationOptions({
     onSuccess: () => {
@@ -18,7 +23,8 @@ const Page = () => {
   }));
   return (
     <div className="p-4 max-w-7xl mx-auto">
-      <Button onClick={() => invoke.mutate({email: "Bibhabasu"})} disabled={invoke.isPending}>Invoke</Button>
+      <Input value={value} onChange={(e) => setValue(e.target.value)}/>
+      <Button onClick={() => invoke.mutate({prompt: value})} disabled={invoke.isPending}>Invoke</Button>
     </div>
   )
 }
